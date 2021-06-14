@@ -40,7 +40,6 @@ def get_table_rows(table):
         tds = tr.find_all("td")
         if len(tds) == 0:
             # if no td tags, search for th tags
-            # can be found especially in wikipedia tables below the table
             ths = tr.find_all("th")
             for th in ths:
                 cells.append(th.text.strip())
