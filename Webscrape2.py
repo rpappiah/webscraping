@@ -80,4 +80,3 @@ if __name__ == "__main__":
         exit(1)
     main(url)    
 
-#Url to test: http://gaalpa2ccmapa01.itservices.sbc.com/aero/cm/home.html
