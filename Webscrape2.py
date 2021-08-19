@@ -1,10 +1,13 @@
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup as bs
+from selenium import webdriver
 
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36"
 # US english
 LANGUAGE = "en-US,en;q=0.5"
+
+
 
 def get_soup(url):
     """Constructs and returns a soup using the HTML content of `url` passed"""
@@ -19,6 +22,7 @@ def get_soup(url):
     html = session.get(url)
     # return the soup
     return bs(html.content, "html.parser")
+
 
 def get_all_tables(soup):
     """Extracts and returns all tables in a soup object"""
@@ -54,6 +58,12 @@ def save_as_csv(table_name, headers, rows):
     pd.DataFrame(rows, columns=headers).to_csv(f"{table_name}.csv")
 
 def main(url):
+    # go to url page
+    driver.get(url)
+    # click button mapping to go to html page with tables
+    mapping = driver.find_element_by_xpath("//input[@value='Mappings']").click()
+    # get updated current url as url used for bs4
+    url = browser.current_url
     # get the soup
     soup = get_soup(url)
     # extract all the tables from the web page
